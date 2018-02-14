@@ -21,6 +21,15 @@ std::istream& operator>>(std::istream &in, Image &image) {
 	}
 	return in;
 }
+std::ostream& operator<<(std::ostream &os, Image &image) {
+	for (int i = 0; i < image.num_rows; i++) {
+		for (int j = 0; j < image.num_cols; j++) {
+			os << image.image_matrix[i][j] << " ";
+		}
+		os << "\n";
+	}
+	return os;
+}
 
 void execute_images(const int num_images_, vector<Image> &image_vector_,
 	std::istream &in) {
@@ -51,12 +60,19 @@ int main(int argc, char** argv) {
 		read_and_reverse(fileInput, &num_images);
 		read_and_reverse(fileInput, &num_rows);
 		read_and_reverse(fileInput, &num_cols);
-		// execute_images(num_images, image_vector, fileInput);
+		execute_images(num_images, image_vector, fileInput);
 
 		cout << "Magic Number:\t\t\t" << magic_number << "\n";
 		cout << "Number of Images:\t\t" << num_images << "\n";
 		cout << "Rows:\t\t\t\t" << num_rows  << "\n";
 		cout << "Columns:\t\t\t" << num_cols << "\n";
+
+		for (int i = 0; i < int(num_rows); i++) {
+			for (int j = 0; j < int(num_cols); j++) {
+				cout << image_vector[i] << " ";
+			}
+			cout << "\n";
+		}
 	}
 	else if (string(argv[2]) == "labels") {
 		read_and_reverse(fileInput, &magic_number);
